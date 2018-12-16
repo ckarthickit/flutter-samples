@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(new MaterialApp(
+    //without home we will get an assertion error for "navigatorObservers != null"
     home: MyHomePage(),
   ));
 }
