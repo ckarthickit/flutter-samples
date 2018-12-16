@@ -1,7 +1,8 @@
 # flutter-samples
 A Repo that contains Flutter Sample Apps
 
-#Flutter Bash Profile Config 
+# Flutter Bash Profile Config 
+
 ####### FLUTTER BIN SHOULD BE IN PATH #####
 export PATH=$PATH:$HOME/Softwares/flutter/bin
 
