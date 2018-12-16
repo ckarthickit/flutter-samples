@@ -18,7 +18,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Flutter SDK Repo Move 
 If we move Flutter SDK to any other REPO  We need to setup the following:
-- Remove .packages from the project 
+- Remove `.packages` from the project 
 ```
 flutter doctor 
 lutter packages get
