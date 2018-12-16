@@ -2,7 +2,7 @@
 A Repo that contains Flutter Sample Apps
 
 # Flutter Bash Profile Config 
-
+```bash
 ####### FLUTTER BIN SHOULD BE IN PATH #####
 export PATH=$PATH:$HOME/Softwares/flutter/bin
 
@@ -14,9 +14,11 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
-
+```
 
 # Flutter SDK Repo Move 
 If we move Flutter SDK to any other REPO  We need to setup the following :
+```
 flutter doctor 
+```
 
