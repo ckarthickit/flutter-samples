@@ -6,8 +6,24 @@ class AppbarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
+        //automaticallyImplyLeading: false,
         backgroundColor: Colors.blueAccent,
-        title: Text("Title"),
+        title: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "Title",
+                style: TextStyle(fontSize: 18.0),),
+              Text(
+                "Subtitle",
+                style: TextStyle(fontSize: 14.0),
+              ),
+            ],
+          ),
+        ),
         elevation: 4.0,
         actions: <Widget>[
           new IconButton(

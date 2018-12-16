@@ -17,9 +17,6 @@ void main() => runApp(WidgetApp());
 class WidgetApp extends StatelessWidget {
     Widget build(BuildContext context) {
       Map<String,WidgetBuilder> widgetRoutes = Map.fromIterables(widgetNames, widgets);
-      for(int i=0; i< widgetNames.length; i++) {
-        
-      }
       return MaterialApp(
         title: "Flutter Widgets Demo",
         debugShowCheckedModeBanner: false,
