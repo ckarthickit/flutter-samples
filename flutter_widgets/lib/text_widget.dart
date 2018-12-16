@@ -7,7 +7,12 @@ class TextWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Text("Hello Flutter"),
+        child: Text(
+          "Hello Flutter It is Awesome WOW",
+          style: TextStyle(
+            color: Colors.amber
+          ),
+        ),
       ),
     );
   }
