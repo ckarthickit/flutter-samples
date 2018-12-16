@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_widgets/text_widget.dart';
 import 'package:flutter_widgets/appbar_widget.dart';
+import 'package:flutter_widgets/container_widget.dart';
 
 var widgetNames = [
   'Text',
   'Appbar',
+  'Container',
   ];
 var widgets = [
   (BuildContext context) => TextWidget(),
   (BuildContext context) => AppbarWidget(),
+  (BuildContext context) => ContainerWidget(),
   ];
 
 void main() => runApp(WidgetApp());
