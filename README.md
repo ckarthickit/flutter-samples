@@ -22,7 +22,7 @@ If we move Flutter SDK to any other REPO  We need to setup the following:
 - Remove `.packages` from the project and run the following commands
   ```
   flutter doctor 
-  lutter packages get
+  flutter packages get
   ```
 
 #MateialApp Mandatory params
