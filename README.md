@@ -25,5 +25,5 @@ If we move Flutter SDK to any other REPO  We need to setup the following:
   flutter packages get
   ```
 
-#MateialApp Mandatory params
+# MateialApp Mandatory params
 -Material App needs home property populated , else we will get an assertion error 
