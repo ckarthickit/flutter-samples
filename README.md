@@ -1,7 +1,7 @@
 # Flutter-samples
 A Repo that contains Flutter Sample Apps
 
-# Flutter Bash Profile Config 
+## Flutter Bash Profile Config 
 - Add the below code to bash rc / profile 
   ```bash
   ####### FLUTTER BIN SHOULD BE IN PATH #####
@@ -17,7 +17,7 @@ A Repo that contains Flutter Sample Apps
   export PATH=$PATH:$ANDROID_HOME/platform-tools
   ```
 
-# Flutter SDK Repo Move 
+## Flutter SDK Repo Move 
 If we move Flutter SDK to any other REPO  We need to setup the following:
 - Remove `.packages` from the project and run the following commands
 
@@ -26,10 +26,10 @@ If we move Flutter SDK to any other REPO  We need to setup the following:
   flutter packages get
   ```
 
-# MateialApp Mandatory params
+## MateialApp Mandatory params
 - Material App needs home property populated , else we will get an assertion error 
 
-# Never ever use `functions` over `classes` to make `reusable widget-tree`
+## Never ever use `functions` over `classes` to make `reusable widget-tree`
 - Consider the following "widget" function:
 
     ```java
