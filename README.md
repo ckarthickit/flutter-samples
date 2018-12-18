@@ -97,6 +97,6 @@ If we move Flutter SDK to any other REPO  We need to setup the following:
 
      >By using classes, each part of your layout is always used in the same way: Using constructor. This abstracts the implementation details. It's important because with functions if you ever wanted to change it to a [StatefulWidget](https://docs.flutter.io/flutter/widgets/StatefulWidget-class.html), it'd be a breaking change.
 
-_Courtesy : https://stackoverflow.com/questions/53234825/what-is-the-difference-between-functions-and-classes-to-create-widgets/53234826#53234826_
+     _Courtesy : https://stackoverflow.com/questions/53234825/what-is-the-difference-between-functions-and-classes-to-create-widgets/53234826#53234826_
      
 
