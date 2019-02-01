@@ -4,7 +4,11 @@ class ClipRectWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextStyle defaultTextStyle = 
-      DefaultTextStyle.of(context).style.copyWith(fontSize: 42.0,fontWeight: FontWeight.bold, color: Colors.black);
+      DefaultTextStyle.of(context).style.copyWith(
+        fontSize: 32.0,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+        fontFamily: 'GabriellWeiss');
     return new Scaffold(
       appBar: AppBar(title: Text("Clip Rect Demo"),),
       body: Material(
@@ -19,23 +23,24 @@ class ClipRectWidget extends StatelessWidget {
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       RichText(
                         text: TextSpan(
                           text: 'F',
                           style: defaultTextStyle,
                           children: <TextSpan>[
-                            TextSpan(text: ".", style: defaultTextStyle.copyWith(color: Colors.red)),
+                            TextSpan(text: " . ", style: defaultTextStyle.copyWith(color: Colors.red)),
                             TextSpan(text: "R", style: defaultTextStyle),
-                            TextSpan(text: ".", style: defaultTextStyle.copyWith(color: Colors.blue)),
+                            TextSpan(text: " . ", style: defaultTextStyle.copyWith(color: Colors.blue)),
                             TextSpan(text: "I", style: defaultTextStyle),
-                            TextSpan(text: ".", style: defaultTextStyle.copyWith(color: Colors.yellow)),
+                            TextSpan(text: " . ", style: defaultTextStyle.copyWith(color: Colors.yellow)),
                             TextSpan(text: "E", style: defaultTextStyle),
-                            TextSpan(text: ".", style: defaultTextStyle.copyWith(color: Colors.red)),
+                            TextSpan(text: " . ", style: defaultTextStyle.copyWith(color: Colors.red)),
                             TextSpan(text: "N", style: defaultTextStyle),
-                            TextSpan(text: ".", style: defaultTextStyle.copyWith(color: Colors.yellow)),
+                            TextSpan(text: " . ", style: defaultTextStyle.copyWith(color: Colors.yellow)),
                             TextSpan(text: "D", style: defaultTextStyle),
-                            TextSpan(text: ".", style: defaultTextStyle.copyWith(color: Colors.blue)),
+                            TextSpan(text: " . ", style: defaultTextStyle.copyWith(color: Colors.blue)),
                             TextSpan(text: "S", style: defaultTextStyle),
                           ]),
                       ),
