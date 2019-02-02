@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -10,8 +11,8 @@ abstract class HackerNews implements Built<HackerNews, HackerNewsBuilder> {
   String get by;
   int get descendants;
   int get id;
-  List<int> get kids;
-  List<int> get parts;
+  BuiltList<int> get kids;
+  BuiltList<int> get parts;
   int get score;
   int get time;
   String get title;
