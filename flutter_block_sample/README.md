@@ -32,6 +32,29 @@ A Flutter project that Demos about BLoC pattern .
   - Declare `static Serializer<Value> get serializer => _$valueSerializer;` inside the Built-Value class 
   - Use `flutter packages pub run build_runner build` to generate serializer for `built-value` class 
 
+# Generating Serializers For `(@SerializersFor)` converting to and from JSON 
+  - Manually create a file `serializers.dart` and type-in the below code
+    ```
+    import 'package:built_value/serializer.dart';
+    import 'package:flutter_block_sample/src/models/value.dart';
+    
+    part 'serializers.g.dart'; //Even if not typed , will be suggested by build_runner
+    
+    @SerializersFor(const [Value])
+    final Serializers serializers = _$serializers;
+    ```
+  - Run `flutter packages pub  run build_runner watch` from command-line and a serializers.g.dart file will be generated.
+  - Once done ,modify the code like below :
+    ```
+    import 'package:built_value/standard_json_plugin.dart';
+    //....
+    
+    @SerializersFor(const [Value])
+    final Serializers serializers = (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
+    
+    //...
+    ```
+
 ## Resources 
 - [HackerNews](https://github.com/HackerNews/API)
 
