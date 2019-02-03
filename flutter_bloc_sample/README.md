@@ -1,11 +1,14 @@
-# flutter_bloc_sample
-
-A Flutter project that Demos about BLoC pattern .
-
-- We will be using Hacker New API to demo this
+# A Flutter project that Demos about `BLoC pattern` and `Built Value`. 
+  - `BLoC` - Also known as *B*usiness *Lo*gic *C*omponent is used to seperate Business Logic from UI
+    - Accepts `Events` as input , and emits `State` as output 
+    - UI Components add `Event`s to `Event-Stream Sink` and recieve `State` from `State-Stream Stream`
+    - BLoC Components recieve `Event`s from `Event-Stream Stream` and add/emit `State` to `State-Stream Sink`
+  - `Built-Value` - Generates all necessary Boiler plate code for Model/Value classes 
+     that come in handly during implementation
 
 ## Notes
 - Use `https://charafau.github.io/json2builtvalue/` to built-value class from a JSON
+- We will be using Hacker New API to demo this
 # Generating Built Value for a Class :
   - Type the following "minimal" abstract class declaration in a file before we run build_runner
     ```
