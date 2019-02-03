@@ -15,6 +15,7 @@ class HackerNewsBloc implements BaseBloc {
 
   List<HackerNews> _cachedNewsFeed = [];
   List<int> _topStories = [];
+  HackerNewsState currentState = Uninitialized();
 
   int get pendingSize {
     return _topStories.length - _cachedNewsFeed.length;
@@ -30,15 +31,15 @@ class HackerNewsBloc implements BaseBloc {
         : defaultBatchSize;
   }
 
-  StreamController<HackerNewsState> _hackerNewsStateController = new StreamController.broadcast();
+  StreamController<HackerNewsState> _hackerNewsStateController =
+      new StreamController.broadcast();
   PublishSubject<HackerNewsEvent> _hackerNewsEventController =
       new PublishSubject<HackerNewsEvent>();
 
   Stream<HackerNewsState> get hackerNewsUpdateStream =>
-      _hackerNewsStateController.stream
-          .where((state) {
-            return state is StoriesUpdated;
-          });
+      _hackerNewsStateController.stream.where((state) {
+        return state is StoriesUpdated;
+      });
 
   Sink<HackerNewsEvent> get hackerNewsEventSink =>
       _hackerNewsEventController.sink;
@@ -49,30 +50,48 @@ class HackerNewsBloc implements BaseBloc {
 
   void _bindEventAndState() {
     //Doing the Wiring of Event to State
+        //Doing the Wiring of Event to State
     _hackerNewsEventController.stream.listen((event) async {
-      if (event is FetchTopStoriesListEvent) {
-         _topStories = await HackerNewsFeed.fetchTopStories();
-          _hackerNewsStateController.sink
-              .add(TopStoriesFetched(UnmodifiableListView(_topStories)));
-
-          //Hard-wiring a Event Fetch internally    
-          hackerNewsEventSink.add(FetchNextStoryBatchEvent(defaultBatchSize));   
+      if (event is FetchTopStoriesListEvent &&
+          currentState == Uninitialized()) {
+        _topStories = await HackerNewsFeed.fetchTopStories();
+        updateState(TopStoriesFetched(UnmodifiableListView(_topStories)));
+        hackerNewsEventSink.add(FetchNextStoryBatchEvent(15));
       } else if (event is FetchNextStoryBatchEvent) {
+        if (currentState == Uninitialized() ||
+            currentState == StoriesUpdating()){
+          return;
+        }
+        if(currentState is StoriesUpdated && (currentState as StoriesUpdated).isUpdateComplete) {
+          return;
+        }
         if (_topStories.length == 0) {
           _hackerNewsStateController.sink
               .add(StoriesUpdateFailed('No Top Stories Available'));
         } else if (nextFetchIndex == -1) {
-          _hackerNewsStateController.sink.add(StoriesUpdateComplete());
+          updateState(StoriesUpdated(_cachedNewsFeed, true));
         } else {
+          updateState(StoriesUpdating());
+          if(this.nextFetchbatchSize <= 0) {
+           updateState(StoriesUpdated(_cachedNewsFeed, true));
+           return;
+          }
           List<HackerNews> newsBatch = await HackerNewsFeed.fetchNewsBatch(
               _topStories.sublist(
-                  this.nextFetchIndex, this.nextFetchbatchSize));
+                  this.nextFetchIndex, this.nextFetchIndex + this.nextFetchbatchSize));
           _cachedNewsFeed.addAll(newsBatch);
-          _hackerNewsStateController.sink
-              .add(StoriesUpdated(UnmodifiableListView(_cachedNewsFeed)));
+          updateState(StoriesUpdated(UnmodifiableListView(_cachedNewsFeed)));
+          if (nextFetchIndex == -1) {
+            updateState(StoriesUpdated(_cachedNewsFeed, true));
+          }
         }
       }
     });
+  }
+
+  void updateState<T extends HackerNewsState>(T state) {
+    currentState = state;
+    _hackerNewsStateController.sink.add(state);
   }
 
   @override
