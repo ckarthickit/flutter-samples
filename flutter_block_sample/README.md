@@ -1,4 +1,4 @@
-# flutter_block_sample
+# flutter_bloc_sample
 
 A Flutter project that Demos about BLoC pattern .
 
@@ -26,7 +26,24 @@ A Flutter project that Demos about BLoC pattern .
     factory Value([updates(ValueBuilder b)]) = _$Value;
     }
     ```
-  -  Use `flutter packages pub run build_runner build` to generate part file for `built-value` class
+  - Use `flutter packages pub run build_runner build` to generate part file for `built-value` class
+  - Since Built-Values's are immutable , we need only define getters for the properties that it has
+  ```
+  import 'package:built_value/built_value.dart';
+    
+    part 'value.g.dart';
+    
+    abstract class Value implements Built<Value,ValueBuilder> {
+    Value._();
+    factory Value([updates(ValueBuilder b)]) = _$Value;
+    
+    int get id;
+    @nullable
+    String get description;
+    }
+  ```
+  - As shown above , if a property can be null it MUST be annotated with `@nullable` annotation
+    
   
 # Generating Serializer for Built Value class : 
   - Declare `static Serializer<Value> get serializer => _$valueSerializer;` inside the Built-Value class 
