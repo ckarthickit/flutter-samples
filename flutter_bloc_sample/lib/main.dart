@@ -42,7 +42,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: StreamBuilder<List<HackerNews>>(
           stream: BlocProviderWidget.of<HackerNewsBloc>(context).bloc.hackerNewsStream,
           builder: (BuildContext context, AsyncSnapshot<List<HackerNews>> snapshot) {
-            if(snapshot.hasData) {
+            if(snapshot.connectionState == ConnectionState.none || snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: CircularProgressIndicator(
+                  semanticsLabel: 'Loading...',
+                ),
+              ));
+            }else if(snapshot.hasData) {
               return ListView.builder(
                 itemCount: snapshot.data.length ,
                 itemBuilder: (BuildContext context, int index) {

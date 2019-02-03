@@ -20,10 +20,10 @@ class HackerNewsFeed {
 
   static Future<HackerNews> fetchNewsItem(int newsID) async {
     final response = await http.get(Uri.parse(baseURL + 'item/$newsID.json'));
-    print('response: ${response.body}');
+    //print('response: ${response.body}');
     final parsed = convert.jsonDecode(response.body);
     HackerNews newsItem = serializers.deserializeWith(HackerNews.serializer, parsed);
-    print('newsItem= $newsItem');
+    //print('newsItem= $newsItem');
     return newsItem;
   }
 }
