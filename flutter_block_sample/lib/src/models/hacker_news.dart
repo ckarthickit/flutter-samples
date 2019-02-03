@@ -8,16 +8,24 @@ abstract class HackerNews implements Built<HackerNews, HackerNewsBuilder> {
   static Serializer<HackerNews> get serializer => _$hackerNewsSerializer;
   HackerNews._();
   factory HackerNews([updates(HackerNewsBuilder b)]) = _$HackerNews;
-  String get by;
-  int get descendants;
   int get id;
+  String get by;
+
+  @nullable
+  int get descendants;
+  @nullable
   BuiltList<int> get kids;
+  @nullable
   BuiltList<int> get parts;
+
   int get score;
   int get time;
   String get title;
   String get type;
+  @nullable
   String get url;
+  @nullable
   int get parent;
+  @nullable
   String get text;
 }
