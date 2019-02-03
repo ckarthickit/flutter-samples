@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       }
                       HackerNews news = storiesUpdatedState.stories[index];
                       return ListTile(
-                        title: Text('$index:${news.title}'),
+                        title: Text('$index: ${news.title}'),
                       );
                     },
                   );

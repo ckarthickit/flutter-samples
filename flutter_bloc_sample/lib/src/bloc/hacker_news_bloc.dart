@@ -11,7 +11,7 @@ import 'package:flutter_block_sample/src/models/hacker_news.dart';
 import 'package:flutter_block_sample/src/models/hacker_news_feed.dart';
 
 class HackerNewsBloc implements BaseBloc {
-  static const int defaultBatchSize = 15;
+  static const int defaultBatchSize = 10;
 
   List<HackerNews> _cachedNewsFeed = [];
   List<int> _topStories = [];
@@ -56,7 +56,7 @@ class HackerNewsBloc implements BaseBloc {
           currentState == Uninitialized()) {
         _topStories = await HackerNewsFeed.fetchTopStories();
         updateState(TopStoriesFetched(UnmodifiableListView(_topStories)));
-        hackerNewsEventSink.add(FetchNextStoryBatchEvent(15));
+        hackerNewsEventSink.add(FetchNextStoryBatchEvent(defaultBatchSize));
       } else if (event is FetchNextStoryBatchEvent) {
         if (currentState == Uninitialized() ||
             currentState == StoriesUpdating()){
