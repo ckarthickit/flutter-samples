@@ -22,11 +22,9 @@ class BlocProviderWidget<T extends BaseBloc> extends StatefulWidget {
     return provider;
   }
 
-  /**
-   * This function gives back "runtimeType-object" of the passed generic 
-   * at runtime. 
-   * We need this function as this same information cannot be represented at compile-time currently.
-   */
+  /// This function gives back "runtimeType-object" of the passed generic
+  /// at runtime.
+  /// We need this function as this same information cannot be represented at compile-time currently.
   static Type _runtimeTypeObjectOf<T>() { 
     return T;
   }
