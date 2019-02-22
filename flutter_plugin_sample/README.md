@@ -13,7 +13,9 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.io/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
 
+`flutter create --template=plugin flutter_plugin_sample`
 
+```
 Creating project flutter_plugin_sample...
   flutter_plugin_sample/LICENSE (created)
   flutter_plugin_sample/ios/flutter_plugin_sample.podspec (created)
@@ -105,4 +107,5 @@ Running "flutter packages get" in flutter_plugin_sample...   3.5s
   flutter_plugin_sample/example/.idea/workspace.xml (created)
 Running "flutter packages get" in example...                10.8s
 Wrote 89 files.
+```
 
