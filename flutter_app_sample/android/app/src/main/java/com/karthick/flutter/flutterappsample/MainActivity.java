@@ -1,4 +1,4 @@
-package com.example.flutterhelloworld;
+package com.karthick.flutter.flutterappsample;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
