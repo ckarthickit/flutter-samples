@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert' as convert;
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter_block_sample/src/models/hacker_news.dart';
 import 'package:flutter_block_sample/src/models/serializers.dart';
 
@@ -11,20 +11,20 @@ class HackerNewsFeed {
   static Future<List<int>> fetchTopStories() async {
     final int start = DateTime.now().millisecondsSinceEpoch;
     final response = await http.get(Uri.parse(baseURL + 'topstories.json'));
-    //print('response: ${response.body}');
+    //debugPrint('response: ${response.body}');
     final parsed = convert.jsonDecode(response.body);
     List<int> topStoriesID = List<int>.from(parsed);
-    print('fetchTopStories done in ${DateTime.now().millisecondsSinceEpoch - start} msec');
+    debugPrint('fetchTopStories done in ${DateTime.now().millisecondsSinceEpoch - start} msec');
     return topStoriesID;
   }
 
   static Future<HackerNews> fetchNewsItem(int newsID) async {
     final response = await http.get(Uri.parse(baseURL + 'item/$newsID.json'));
-    //print('response: ${response.body}');
+    //debugPrint('response: ${response.body}');
     final parsed = convert.jsonDecode(response.body);
     HackerNews newsItem =
         serializers.deserializeWith(HackerNews.serializer, parsed);
-    //print('newsItem= $newsItem');
+    //debugPrint('newsItem= $newsItem');
     return newsItem;
   }
 
@@ -43,14 +43,14 @@ class HackerNewsFeed {
         HackerNews newsItem =
         serializers.deserializeWith(HackerNews.serializer, parsed);
         hackerNewsList.add(newsItem);
-        print('fetchStory done in ${DateTime.now().millisecondsSinceEpoch - start} msec');
+        debugPrint('fetchStory done in ${DateTime.now().millisecondsSinceEpoch - start} msec');
       }
     } catch (e, s) {
-      print('Exception $e occurred at: $s');
+      debugPrint('Exception $e occurred at: $s');
     } finally {
       client.close();
     }
-    print('batchFetch done in ${DateTime.now().millisecondsSinceEpoch - start} msec');
+    debugPrint('batchFetch done in ${DateTime.now().millisecondsSinceEpoch - start} msec');
     return hackerNewsList;
   }
 }

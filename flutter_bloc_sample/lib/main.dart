@@ -6,7 +6,15 @@ import 'package:flutter_block_sample/src/bloc/internal/block_provider_widget.dar
 import 'package:flutter_block_sample/src/bloc/hacker_news_bloc.dart';
 import 'package:flutter_block_sample/src/models/hacker_news.dart';
 
-void main() => runApp(MyApp());
+void main() { 
+  const bool isReleaseMode = const bool.fromEnvironment('dart.vm.product');
+  debugPrint('ReleaseMode: $isReleaseMode');
+  //Below Code will strip off debug prints in release mode
+  if(isReleaseMode) {
+    debugPrint = (String message, {int wrapWidth}) {};
+  }
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

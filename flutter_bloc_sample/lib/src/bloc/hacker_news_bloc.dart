@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:collection';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:rxdart/rxdart.dart';
 
 import 'package:flutter_block_sample/src/bloc/internal/block_base.dart';
@@ -96,7 +98,7 @@ class HackerNewsBloc implements BaseBloc {
 
   @override
   void dispose() {
-    print('dispose');
+    debugPrint('dispose');
     _hackerNewsStateController.close();
     _hackerNewsEventController.close();
   }
