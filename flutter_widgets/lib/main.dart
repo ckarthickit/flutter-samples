@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widgets/list_view_widget.dart';
 
 import 'package:flutter_widgets/text_widget.dart';
 import 'package:flutter_widgets/appbar_widget.dart';
@@ -9,13 +10,15 @@ var widgetNames = [
   'Text',
   'Appbar',
   'Container',
-  'ClipRect'
+  'ClipRect',
+  'ListView Demo'
   ];
 var widgets = [
   (BuildContext context) => TextWidget(),
   (context) => AppbarWidget(),
   (context) => ContainerWidget(),
   (context) => ClipRectWidget(),
+  (context) => DemoListView(),
   ];
 
 void main() => runApp(WidgetApp());
