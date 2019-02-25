@@ -15,8 +15,9 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.io/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
 
-flutter create --template=app --org com.karthick.flutter --project-name flutter_app_sample flutter_app_sample
+`flutter create --template=app --org com.karthick.flutter --project-name flutter_app_sample flutter_app_sample`
 
+```
 Creating project flutter_app_sample...
   flutter_app_sample/ios/Runner.xcworkspace/contents.xcworkspacedata (created)
   flutter_app_sample/ios/Runner/Info.plist (created)
@@ -99,4 +100,5 @@ In order to run your application, type:
   $ flutter run
 
 Your application code is in flutter_app_sample/lib/main.dart.
+```
 
