@@ -2,6 +2,20 @@
 
 A new flutter plugin project.
 
+## A Plugin's pubspec.yaml
+
+```yaml
+# The following section is specific to Flutter.
+flutter:
+  # This section identifies this Flutter project as a plugin project.
+  # The androidPackage and pluginClass identifiers should not ordinarily
+  # be modified. They are used by the tooling to maintain consistency when
+  # adding or updating assets for this project.
+  plugin:
+    androidPackage: com.example.flutterpluginsample
+    pluginClass: FlutterPluginSamplePlugin
+```
+
 ## Getting Started
 
 - This project is a starting point for a Flutter
