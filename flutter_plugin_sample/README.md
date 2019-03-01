@@ -4,18 +4,20 @@ A new flutter plugin project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.io/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+- This project is a starting point for a Flutter
+  [plug-in package](https://flutter.io/developing-packages/),
+  a specialized package that includes platform-specific implementation code for
+  Android and/or iOS.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+- For help getting started with Flutter, view our
+  [online documentation](https://flutter.io/docs), which offers tutorials,
+  samples, guidance on mobile development, and a full API reference.
+
+- Flutter Plugin creation - CommandLine:  
 
 `flutter create --template=plugin flutter_plugin_sample`
 
-```
+```bash
 Creating project flutter_plugin_sample...
   flutter_plugin_sample/LICENSE (created)
   flutter_plugin_sample/ios/flutter_plugin_sample.podspec (created)
@@ -108,4 +110,3 @@ Running "flutter packages get" in flutter_plugin_sample...   3.5s
 Running "flutter packages get" in example...                10.8s
 Wrote 89 files.
 ```
-
