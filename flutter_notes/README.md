@@ -1,5 +1,222 @@
 # Flutter Learnings
 
+## Flutter Basic Classes
+
+### RenderObject
+
+- An `object in the render tree`.
+- The `RenderObject` class hierarchy is the core of the rendering library's reason for being.
+- Class Declaration:
+
+  ```dart
+  abstract class RenderObject extends AbstractNode with DiagnosticableTreeMixin implements HitTestTarget{
+  }
+  ```
+
+- Have a `parent`, and  and have a slot called `parentData` in which
+the parent `RenderObject` can store child-specific data.
+- Protocols Implemented by `Render Objects`
+  - `Layout`
+    - Sizing based on a set of constraints provided to them (Renderbox).
+    - "Normally" sizing is done purely based on constraints.
+      - `sizedByParent` returns true and `performResize` is overrideen in this case.
+    - "Otherwise", size is set in the `performLayout` function.
+      - This is responsible for calling `layout` on each (box) child.
+    - **`markNeedsLayout` is called for re-layout**.
+  - `Painting`
+    - `paint` method is overridden to describe how RenderBox paints with `PaintingContext`
+    and an `Offset`.
+    - The `paint` method's `context` argument has a `PaintingContext.paintChild` method,
+    which should be called for each child that is to be painted.
+    - **`markNeedsPaint` is called for re-painting**.
+  - `Hit Tests`
+    - Determines the set of render objects located at the given position.
+  - `Semantics`
+    - Implemented, for a render box to be accessible.
+    - `semanticsAnnotator` is used.
+  - __`RenderBox` sub-class__ .
+    - A render object in a 2D Cartesian coordinate system.
+    - Protocols Implemented by `RenderBox`
+      - `Intrinsics and Baselines`
+        - `computeMinIntrinsicWidth` , `computeMaxIntrinsicWidth`, `computeMinIntrinsicHeight`, `computeMaxIntrinsicHeight`
+        methods are used to implement this protocol.
+
+### Widgets
+
+#### StatelessWidget
+
+- Class
+
+  ```dart
+  abstract class StatelessWidget extends Widget {
+    StatelessElement createElement() => StatelessElement(this);
+  }
+  ```
+
+#### StatefulWidget
+
+- Class
+
+  ```dart
+  abstract class StatefulWidget extends Widget {
+     StatefulElement createElement() => StatefulElement(this);
+  }
+  ```
+
+#### ProxyWidget
+
+- A widget that has a child widget provided to it, instead of building a new Widget
+- Has `exactly one child widget`.
+- Class
+
+  ```dart
+  abstract class ProxyWidget extends Widget {
+
+    /// createElement is abstract and provided by classes extending this Widget.
+    Element createElement();
+
+    /// The widget below this widget in the tree.
+    final Widget child;
+  }
+  ```
+
+#### RenderObjectWidget
+
+- RenderObjectWidgets provide the configuration for `RenderObjectElement`s, which wrap `RenderObject`s, which provide the actual rendering of the application.
+- Class
+
+  ```dart
+  abstract class RenderObjectWidget extends Widget{
+  
+    /// RenderObjectWidgets always inflate to a [RenderObjectElement] subclass.
+    RenderObjectElement createElement();
+  }
+  ```
+
+#### RenderObjectToWidgetAdapter
+
+- A bridge from a `RenderObject` to an `Element` tree.
+- **Properties**
+  - `final Widget child;` - The widget below this widget in the tree.
+
+### Elements
+
+- An instantiation of a `Widget` at a particular location in the tree.
+- `is a` **BuildContext** by itslef.
+- **Lifecycle:**
+  - Framework calls `Widget.createElement` to create and `Element`.
+  - Framework calls `Element.mount` to  add it to Element Tree.
+    - Element is considered `"active"` at this point.
+  - Framework calls `update(covariant Widget newWidget)` with new widget.
+    - Parent might decide to `change the widget used to configure this element`. (Eg., Parent rebuild with new state)
+    - The new widget will always have the same `runtimeType` and `key` as old widget. (`Else the Element is unmount`-ed
+    instead of being updated).
+  - Framework calls `deactivateChild` on an **Ancestor element** with a **Child Element**.
+    - An ancestor might decide to remove this element (or an intermediate ancestor) from the tree.
+    - Element is considered `"inactive"` and will not appear
+    - At the `end of the animation frame`, any elements that are still inactive will be `unmounted`.
+  - Framework calls `activate` on the element, and re-attaches the element's render object to render tree.
+    - If Element gets reincorporated into the tree
+    - Element is considered `"active"` at this point.
+  - Framework calls [unmount] on the Element.
+    - If the element does not get reincorporated into the tree by the end of the current animation frame
+    - Element is considered `"defunct"` and will not be reincorporated in the future.
+  - Class
+
+    ```dart
+    abstract class  Element extends DiagnosticableTree implements BuildContext {
+
+      /// The configuration for this element.
+      Widget get widget => _widget;
+
+      /// The object that manages the lifecycle of this element.
+      BuildOwner get owner => _owner;
+
+    }
+    ```
+
+#### ComponentElement
+
+- An **Element** that `composes` other **Elements**.
+- Rather than creating a `RenderObject` directly, a `ComponentElement` creates `RenderObject`s indirectly by creating other `Element`s.
+- Contrast with `RenderObjectElement`.
+
+##### StatelessElement
+
+- Class Info
+
+  ```dart
+  class StatelessElement extends ComponentElement {
+    ///Calls build method on the Widget passing itself as context.
+    Widget build() => widget.build(this);
+  }
+  ```
+
+##### StatefulElement
+
+- Class Info
+
+  ```dart
+  class StatefulElement extends ComponentElement {
+  
+    ///State Object
+    State<StatefulWidget> get state => _state;
+    State<StatefulWidget> _state;
+
+    StatefulElement(StatefulWidget widget)
+          :_state = widget.createState(),
+          super(widget){
+
+    }
+
+    ///Calls build method on the State Object
+    Widget build() => state.build(this);
+  }
+  ```
+
+##### ProxyElement
+
+- Class Info
+
+  ```dart
+  abstract class ProxyElement extends ComponentElement {
+
+    ProxyElement(ProxyWidget widget) : super(widget);
+
+    ProxyWidget get widget => super.widget;
+  
+    /// Simply returns the Child Widget, without building it ?
+    /// Who calls build on the child widget with some BuildContext ?
+    Widget build() => widget.child;
+  }
+  ```
+
+#### RenderObjectElement
+
+- Have an associated `RenderObject` widget in the render tree, which handles concrete operations like
+  1. Laying out,
+  2. Painting,
+  3. Hit Testing,
+- spend much of their time acting as `intermediaries` between their `widget` and their `renderObject`.
+- Each **child Element** corresponds to a **RenderObject** which should be attached to this `element's render object`     as a child.\
+  However, the `immediate children of the element may not be the ones` that eventually produce the actual **RenderObject**. Eg., (StatelessElement and othet `ComponentElement`s).
+
+##### RootRenderObjectElement
+
+- Element at the root of the tree
+
+##### LeafRenderObjectElement
+
+- Handles, Leaf render Objects, with no children
+
+##### SingleChildRenderObjectElement
+
+- Handles, a Single Child
+
+##### MultiChildRenderObjectElement
+
+- Handles, a `Linked-List of Children`.
+
 ## Flutter Framework Internals
 
 ### Flutter Plugins
