@@ -90,6 +90,30 @@ the parent `RenderObject` can store child-specific data.
   
     /// RenderObjectWidgets always inflate to a [RenderObjectElement] subclass.
     RenderObjectElement createElement();
+
+    /// Creates an instance of the [RenderObject] class that this
+    /// [RenderObjectWidget] represents, using the configuration described by this
+    /// [RenderObjectWidget].
+    ///
+    /// This method should not do anything with the children of the render object.
+    /// That should instead be handled by the method that overrides
+    /// [RenderObjectElement.mount] in the object rendered by this object's
+    /// [createElement] method. See, for example,
+    /// [SingleChildRenderObjectElement.mount].
+    @protected
+    RenderObject createRenderObject(BuildContext context);
+
+    /// Copies the configuration described by this [RenderObjectWidget] to the
+    /// given [RenderObject], which will be of the same type as returned by this
+    /// object's [createRenderObject].
+    ///
+    /// This method should not do anything to update the children of the render
+    /// object. That should instead be handled by the method that overrides
+    /// [RenderObjectElement.update] in the object rendered by this object's
+    /// [createElement] method. See, for example,
+    /// [SingleChildRenderObjectElement.update].
+    @protected
+    void updateRenderObject(BuildContext context, covariant RenderObject renderObject) { }
   }
   ```
 
@@ -200,6 +224,28 @@ the parent `RenderObject` can store child-specific data.
 - spend much of their time acting as `intermediaries` between their `widget` and their `renderObject`.
 - Each **child Element** corresponds to a **RenderObject** which should be attached to this `element's render object`     as a child.\
   However, the `immediate children of the element may not be the ones` that eventually produce the actual **RenderObject**. Eg., (StatelessElement and othet `ComponentElement`s).
+- Class Info
+
+  ```dart
+  abstract class RenderObjectElement extends Element {
+    /// Creates an element that uses the given widget as its configuration.
+    RenderObjectElement(RenderObjectWidget widget) : super(widget);
+
+    @override
+    RenderObjectWidget get widget => super.widget;
+
+    /// The underlying [RenderObject] for this element.
+    @override
+    RenderObject get renderObject => _renderObject;
+
+    /// RENDER OBJECT IS CREATED DURING MOUNT
+    void mount(Element parent, dynamic newSlot) {
+      super.mount(parent, newSlot);
+      _renderObject = widget.createRenderObject(this);
+      //.... More Logic
+    }
+  }
+  ```
 
 ##### RootRenderObjectElement
 
