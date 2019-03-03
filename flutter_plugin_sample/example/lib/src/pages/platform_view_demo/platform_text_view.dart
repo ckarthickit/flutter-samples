@@ -11,11 +11,13 @@ typedef PlatFormTextViewCreatedCallback = void Function(PlatformTextViewControll
 const _viewType = 'in.flutter.karthick/textview';
 class PlatformTextView extends StatefulWidget {
   final String text;
+  final Color color;
   final PlatFormTextViewCreatedCallback onPlatformTextViewCreated;
 
   const PlatformTextView({
     Key key,
     this.text,
+    this.color,
     this.onPlatformTextViewCreated,
   }):super(key:key);
   @override
@@ -54,6 +56,9 @@ class _PlatformTextViewState extends State<PlatformTextView> {
      _controller = new PlatformTextViewController._(id);
      //configure PlatformTextView
      _controller.setText(widget.text);
+     if(widget.color !=null) {
+       _controller.setBackgroundColor(widget.color.value);
+     }
 
     //Invoke Callback 
     if(widget.onPlatformTextViewCreated == null) {
@@ -72,6 +77,10 @@ class PlatformTextViewController {
   Future<void> setText(final String text) async {
     assert(text != null);
     return _channel.invokeMethod('setText', text);
+  }
+
+  Future<void> setBackgroundColor(final int color) async {
+    return _channel.invokeMethod('setBackgroundColor', color);
   }
 
 }

@@ -22,7 +22,7 @@ class _PlatformViewDemoState extends State<PlatformViewDemo> {
       ),
       body: Container(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -31,6 +31,7 @@ class _PlatformViewDemoState extends State<PlatformViewDemo> {
               height: 200.0,
               child: PlatformTextView(
                 text: 'TextView from $defaultTargetPlatform',
+                color: Colors.yellow,
                 onPlatformTextViewCreated: (controller){
                   Future.delayed(Duration(seconds: 5),(){
                     controller.setText("TextView from $defaultTargetPlatform modified ;)");

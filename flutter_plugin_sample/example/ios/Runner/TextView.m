@@ -7,6 +7,13 @@
 //
 
 #import "TextView.h"
+
+#define UIColorFromRGB(rgbValue) \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
+blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
+alpha:1.0]
+
 @interface TextView()//<FlutterPlugin>
 
 @end
@@ -56,6 +63,13 @@ static void handleMethodCall(TextView *textView, FlutterMethodCall *call, Flutte
     if ([@"setText" isEqualToString:call.method]) {
         NSString *text = call.arguments;
         [textView->_textView setText:text];
+        result(nil);
+        return;
+    }
+    if([@"setBackgroundColor" isEqualToString:call.method]) {
+        NSNumber *color = call.arguments;
+        [textView->_textView setBackgroundColor:UIColorFromRGB(color.intValue)];
+        result(nil);
         return;
     }
     result(FlutterMethodNotImplemented);

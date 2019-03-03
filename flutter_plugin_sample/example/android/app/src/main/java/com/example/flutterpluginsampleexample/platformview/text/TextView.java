@@ -1,8 +1,11 @@
 package com.example.flutterpluginsampleexample.platformview.text;
 
+import android.app.ActionBar.LayoutParams;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -17,6 +20,7 @@ public class TextView implements PlatformView, MethodCallHandler {
   private final String mUniqueID;
   public TextView(final Context context, final BinaryMessenger messenger, final String uniqueID) {
     mTextView = new android.widget.TextView(context);
+    mTextView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     mUniqueID = uniqueID;
     textViewChannel = new MethodChannel(messenger, mUniqueID);
     textViewChannel.setMethodCallHandler(this);
@@ -38,6 +42,12 @@ public class TextView implements PlatformView, MethodCallHandler {
       case "setText": {
         String text = (String) methodCall.arguments;
         mTextView.setText(text);
+        result.success(null);
+      }
+      break;
+      case "setBackgroundColor": {
+        long bgColor = (long)methodCall.arguments;
+        mTextView.setBackgroundColor((int)bgColor);
         result.success(null);
       }
       break;
