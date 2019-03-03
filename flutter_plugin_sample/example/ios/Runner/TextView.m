@@ -12,7 +12,8 @@
 @end
 @implementation TextView {
     FlutterMethodChannel *_channel;
-    UITextView *_textView;
+    //UITextView *_textView;
+    UILabel * _textView;
 }
 
 //+ (void)registerWithRegistrar:(nonnull NSObject<FlutterPluginRegistrar> *)registrar {
@@ -27,7 +28,8 @@
 -(instancetype)initWithFrame: (CGRect) frame messenger: (NSObject<FlutterBinaryMessenger>*) messenger uniqueID:(NSString *) uniqueID{
     if(self = [super init]) {
         
-        self->_textView = [[UITextView alloc] initWithFrame:frame];
+        //self->_textView = [[UITextView alloc] initWithFrame:frame];
+        self->_textView = [[UILabel alloc] initWithFrame:frame];
         
         self->_channel = [FlutterMethodChannel methodChannelWithName:uniqueID binaryMessenger: messenger];
         
