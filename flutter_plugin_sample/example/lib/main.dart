@@ -6,9 +6,10 @@ void main() => runApp(MyApp());
 
 typedef Widget WidgetsBuilder(BuildContext context);
 
-const pageNames = <String>['Method Channels - Using Plugin'];
+const pageNames = <String>['Method Channels - Using Plugin', 'PlatformView Demo - TextView'];
 const pageWidgets = <Widget>[
   const MethodChannelDemo(),
+  const PlatformViewDemo(),
 ];
 
 // var pageWidgetsBuilder = <WidgetsBuilder>[
@@ -36,9 +37,10 @@ class MyApp extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.all(16.0),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(pageNames[index], style: TextStyle(color: Colors.black, fontSize: 20.0),),
-                          Icon(Icons.chevron_right, color: Colors.blueAccent,),
+                          Icon(Icons.keyboard_arrow_right, color: Colors.blueAccent,),
                         ],
                       )
                     ),
