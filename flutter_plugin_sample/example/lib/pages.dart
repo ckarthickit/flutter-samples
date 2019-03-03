@@ -1,0 +1,1 @@
+export 'src/pages/method_channel_demo.dart';

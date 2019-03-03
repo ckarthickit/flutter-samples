@@ -1,84 +1,73 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:flutter/services.dart';
-import 'package:flutter_plugin_sample/flutter_plugin_sample.dart';
+import 'package:flutter_plugin_sample_example/pages.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+typedef Widget WidgetsBuilder(BuildContext context);
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  String _helloWorldMsg = 'Unknown';
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
+const pageNames = <String>['Method Channels - Using Plugin'];
+const pageWidgets = <Widget>[
+  const MethodChannelDemo(),
+];
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    String helloWorldMsg;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterPluginSample.platformVersion;
-      helloWorldMsg = await FlutterPluginSample.helloWorld;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
+// var pageWidgetsBuilder = <WidgetsBuilder>[
+//   (BuildContext context) => CustomChannel(),
+// ];
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-      _helloWorldMsg = helloWorldMsg;
-    });
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: Text('Flutter Plugins Example'),
         ),
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            //Text('Running on: $_platformVersion\n'),
-            DecoratedBox(
-              decoration: BoxDecoration(color: Colors.yellow),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                'Msg : $_helloWorldMsg\n', 
-                style: Theme.of(context).textTheme.subhead.copyWith(color: Colors.deepOrange),
-                ),
+        body: ListView.builder(
+          itemCount: pageNames.length,
+          itemBuilder: (BuildContext context, int index){
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              child: InkWell(
+                  child: Card(
+                    elevation: 5.0,
+                    child: Container(
+                      color: Colors.white,
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(16.0),
+                      child: Row(
+                        children: <Widget>[
+                          Text(pageNames[index], style: TextStyle(color: Colors.black, fontSize: 20.0),),
+                          Icon(Icons.chevron_right, color: Colors.blueAccent,),
+                        ],
+                      )
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pushNamed(pageNames[index]);
+                  },
               ),
-            ),
-            DecoratedBox(
-              decoration: BoxDecoration(color: Colors.yellow),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                'Msg : $_platformVersion\n', 
-                style: Theme.of(context).textTheme.subhead.copyWith(color: Colors.deepOrange),
-                ),
-              ),
-            ),
-          ], 
+            );
+          },
         ),
       ),
+      onGenerateRoute: (RouteSettings routeSettings) {
+        return PageRouteBuilder(
+          pageBuilder: (BuildContext context,
+            Animation<double> animation, Animation<double> secondaryAnimation) {
+            return pageWidgets[pageNames.indexOf(routeSettings.name)];
+          }, 
+          transitionsBuilder: (BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child) {
+          return SlideTransition(
+            position: Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset.zero)
+                .animate(animation),
+            child: child,
+          );
+        });
+      },
     );
   }
 }
