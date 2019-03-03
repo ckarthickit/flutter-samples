@@ -10,6 +10,10 @@
 .history
 .svn/
 
+# Generated Files 
+bin/
+gen/
+
 # IntelliJ related
 *.iml
 *.ipr
