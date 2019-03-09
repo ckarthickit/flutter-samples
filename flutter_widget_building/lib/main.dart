@@ -4,6 +4,8 @@ import './custom_element.dart';
 import './src/set_state_demo_page.dart';
 import './src/inherited_widget/inherited_widget_demo.dart';
 import './src/inherited_widget/inherited_widget_demo2.dart';
+import './src/scoped_model/scoped_model_demo.dart';
+
 void main() => runApp(MyApp());
 
 var routes = {
@@ -11,6 +13,7 @@ var routes = {
   '/setStateDemo': SetStateDemoPage(),
   '/inheritedWidgetDemo' : InheritedWidgetDemoPage(),
   '/inheritedWidgetDemo2' : InheritedWidgetDemoPage2(),
+  '/scopedModelDemo' :ScopedModelDemoPage(),
 };
 
 class MyApp extends StatefulWidget {
