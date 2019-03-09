@@ -5,6 +5,7 @@ import './src/set_state_demo_page.dart';
 import './src/inherited_widget/inherited_widget_demo.dart';
 import './src/inherited_widget/inherited_widget_demo2.dart';
 import './src/scoped_model/scoped_model_demo.dart';
+import './src/inherited_model/inherited_model_demo.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,6 +15,7 @@ var routes = {
   '/inheritedWidgetDemo' : InheritedWidgetDemoPage(),
   '/inheritedWidgetDemo2' : InheritedWidgetDemoPage2(),
   '/scopedModelDemo' :ScopedModelDemoPage(),
+  '/inheritedModelDemo':InheritedModelDemoPage(),
 };
 
 class MyApp extends StatefulWidget {
