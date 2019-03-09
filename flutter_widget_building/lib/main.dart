@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import './constants.dart';
 import './custom_element.dart';
 import './src/set_state_demo_page.dart';
-
+import './src/inherited_widget/inherited_widget_demo.dart';
+import './src/inherited_widget/inherited_widget_demo2.dart';
 void main() => runApp(MyApp());
 
 var routes = {
   '/': _HomePage(),
   '/setStateDemo': SetStateDemoPage(),
+  '/inheritedWidgetDemo' : InheritedWidgetDemoPage(),
+  '/inheritedWidgetDemo2' : InheritedWidgetDemoPage2(),
 };
 
 class MyApp extends StatefulWidget {
@@ -65,7 +68,7 @@ class _HomePageState extends State<_HomePage> {
             child: DecoratedBox(
               decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.white,
+                    color: Colors.white54,
               ),
               child: ListTile(
                 title: Padding(
