@@ -66,6 +66,8 @@ class _ArbitraryDataModel extends InheritedModel<ArbitraryDataAspect> {
   @override
   bool updateShouldNotify(_ArbitraryDataModel oldWidget) {
     //! We are comparing the Widget data with it's corresponding State's data here
+    //! State initially "copies" data from Widget and then mutates it 
+    //! So we compare the original "data" from widget against mutatated "data" of the state.
     return dataState.data != oldWidget.dataState.widget.data;
   }
 
