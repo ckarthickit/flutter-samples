@@ -16,6 +16,12 @@ void main() {
       expect(true, data1 == data2);
     });
 
+     test('== should return false for 2 Data containing different values', () {
+      ArbitraryData data1 = ArbitraryData(counter:1, lastMessage:"Hello Something");
+      ArbitraryData data2 = ArbitraryData(counter:2, lastMessage:"Something Else");
+      expect(false, data1 == data2);
+    });
+
     test('!= should return true for 2 Data containing different values', () {
       ArbitraryData data1 = ArbitraryData(counter:1, lastMessage:"Hello Something");
       ArbitraryData data2 = ArbitraryData(counter:2, lastMessage:"Something Else");
