@@ -111,3 +111,4 @@ If we move Flutter SDK to any other REPO  We need to setup the following:
 - http://bizz84.github.io/ | https://codingwithflutter.com/
 - https://medium.com/flutter-community
 - https://medium.com/flutter-io/do-flutter-apps-dream-of-platform-aware-widgets-7d7ed7b4624d
+- [Dev Tools](https://flutter.github.io/devtools/)
