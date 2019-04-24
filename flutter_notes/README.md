@@ -271,7 +271,15 @@ the parent `RenderObject` can store child-specific data.
 
 - `Registry used by plugins to set up interaction with Android/iOS APIs`.
 - Flutter applications by default include an auto-generated and auto-updated `plugin registrant class (GeneratedPluginRegistrant)` that makes use of `PluginRegistry` to register contributions of each plugin
-mentioned in `pubspec.yaml`.
+mentioned in `pubspec.yaml`. 
+
+   ```dart
+   flutter:
+     plugin:
+      androidPackage: in.ckarthickit.flutter.av_player
+      iosPrefix: FLT
+      pluginClass: AVPlayerPlugin
+   ```
 - Default `PluginRegistry` in each platform:
 
     ```java
